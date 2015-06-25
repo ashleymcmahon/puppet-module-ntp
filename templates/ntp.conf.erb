@@ -1,0 +1,19 @@
+# ntp.conf: Managed by puppet.
+
+<% [@servers].flatten.each do |server| -%>
+server <%= server %>
+<% end -%>
+
+# Driftfile.
+driftfile <%= @driftfile %>
+
+<% if @logfile != '' -%>
+logfile <%= @logfile %>
+<% end -%>
+
+# Permit all access over the loopback interface.
+restrict 127.0.0.1
+
+# Permit time synchronization with our time source, but do not
+# permit the source to query or modify the service on this system.
+restrict default noquery nomodify notrap nopeer
